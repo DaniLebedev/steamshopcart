@@ -1,0 +1,105 @@
+:root {
+    --cl-text: #daf0f3;
+    --bg-gradient: linear-gradient(90deg, #00a9ff, #005fff);
+}
+
+body {
+    min-width: 300px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: var(--bg-gradient);
+}
+
+#popup-container {
+    background: rgba(255, 255, 255, 0.1);
+
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 5px rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    font-size: 18px;
+    font-family: "WDXL Lubrifont JP N", sans-serif;
+    color: var(--cl-text);
+
+}
+
+.games-container {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    gap: 10px;
+    padding: 20px;
+    margin: 10px 0;
+
+    max-height: 100px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 10px;
+
+    border-radius: 5px;
+    background: var(--bg-gradient);
+}
+input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--cl-text);
+    box-shadow: 5px 5px 0px rgba(0, 255, 0, 0.5);
+    transform: translate3d(-2.5px, -2.5px, 0px);
+    transition: transform, box-shadow 0.5s ease;
+    border-radius: 5px;
+
+
+}
+input:hover {
+    box-shadow: none;
+        background-color: rgba(0, 255, 0, 0.3);
+
+
+}
+
+input:active {
+    transform: translate3d(0px, 0px, 0px);
+    box-shadow: none;
+    background-color: rgba(0, 255, 0, 0.7);
+}
+
+/* cancel */
+
+input.cancel {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--cl-text);
+    box-shadow: 5px 5px 0px rgba(255, 0, 0, 0.5);
+    transform: translate3d(-2.5px, -2.5px, 0px);
+    transition: transform, box-shadow 0.5s ease;
+
+}
+
+input.cancel:hover {
+    box-shadow: none;
+    background-color: rgba(255, 0, 0, 0.3);
+
+}
+
+input.cancel:active {
+    transform: translate3d(0px, 0px, 0px);
+    box-shadow: none;
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.btn-get
+{
+    width: 100%;
+    font-size: 20px;
+}
