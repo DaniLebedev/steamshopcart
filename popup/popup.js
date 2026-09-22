@@ -28,7 +28,8 @@ async function getGamesFromPage() {
       games = response.games.map((game, index) => ({
         id: index,
         name: game.name,
-        pageId: game.id
+        pageId: game.id,
+        price: game.price
       }));
       
       // Отображаем игры в popup
@@ -88,7 +89,7 @@ function displayGames() {
     gamelist.innerHTML += `
       <div class="game" data-index="${index}">
         <label>
-          <h1 class="game-id">${game.id} : ${game.name}</h1>
+          <h1 class="game-id">${game.id}: ${game.name}  ${game.price}</h1>
         </label>
       </div>
     `;
