@@ -8,20 +8,20 @@ let btnget = document.querySelector(".btn-get");
 async function getGamesFromPage() {
   try {
     // 1. Получаем активную вкладку
-    const [tab] = await browser.tabs.query({ 
-      active: true, 
-      currentWindow: true 
+    const [tab] = await browser.tabs.query({
+      active: true,
+      currentWindow: true
     });
-    
+
     console.log('Отправляем запрос в content.js для вкладки:', tab.id);
-    
+
     // 2. Отправляем запрос в content.js
     const response = await browser.tabs.sendMessage(tab.id, {
       action: 'getPageInfo'
     });
-    
+
     console.log('Получен ответ от content.js:', response);
-    
+
     // 3. Обрабатываем ответ
     if (response.success) {
       // Сохраняем игры
@@ -31,21 +31,21 @@ async function getGamesFromPage() {
         pageId: game.id,
         price: game.price
       }));
-      
+
       // Отображаем игры в popup
       displayGames();
-      
+
       // Показываем информацию
-      document.getElementById('status').textContent = 
+      document.getElementById('status').textContent =
         `Найдено ${response.totalGames} игр на странице ${response.title}`;
-      
+
     } else {
       document.getElementById('status').textContent = 'Не удалось получить данные';
     }
-    
+
   } catch (error) {
     console.error('Ошибка:', error);
-    document.getElementById('status').textContent = 
+    document.getElementById('status').textContent =
       'Ошибка: ' + error.message;
   }
 }
@@ -53,19 +53,19 @@ async function getGamesFromPage() {
 // Функция для поиска элемента по XPath
 async function getElementByXPath(xpath) {
   try {
-    const [tab] = await browser.tabs.query({ 
-      active: true, 
-      currentWindow: true 
+    const [tab] = await browser.tabs.query({
+      active: true,
+      currentWindow: true
     });
-    
+
     const response = await browser.tabs.sendMessage(tab.id, {
       action: 'getElementByXPath',
       xpath: xpath
     });
-    
+
     console.log('Результат поиска по XPath:', response);
     return response;
-    
+
   } catch (error) {
     console.error('Ошибка:', error);
     return null;
@@ -74,16 +74,19 @@ async function getElementByXPath(xpath) {
 
 // Функция для отображения игр в popup
 function displayGames() {
+
+  let bufer = "";
+
   if (!gamelist) return;
-  
+
   // Очищаем контейнер
   gamelist.innerHTML = '';
-  
+
   if (games.length === 0) {
     gamelist.innerHTML = '<p>Игры не найдены</p>';
     return;
   }
-  
+
   // Добавляем каждую игру
   games.forEach((game, index) => {
     gamelist.innerHTML += `
@@ -94,6 +97,13 @@ function displayGames() {
       </div>
     `;
   });
+  games.forEach((game) => {
+    bufer += `${game.id}: ${game.name}  ${game.price}\n`;
+  });
+  try {
+    navigator.clipboard.writeText(bufer);
+  }
+  catch { }
 }
 
 
@@ -102,11 +112,11 @@ function displayGames() {
 function SetGames() {
   console.clear();
   games = [];
-  
+
   for (let i = 0; i < 5; i++) {
     games.push({ id: i, name: `game ${i}` });
   }
-  
+
   displayGames();
   console.log('Созданы игры:', games);
 }
@@ -129,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (status) {
     status.textContent = 'Нажмите кнопку для получения игр';
   }
-  
+
   // Если есть сохранённые игры, загружаем их
   loadGamesFromStorage();
 });

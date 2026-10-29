@@ -107,6 +107,11 @@ input.cancel:active {
 
 .btn-get
 {
-    width: 100%;
+    width: 100px;
     font-size: 20px;
+}
+
+.header
+{
+    justify-content: space-between;
 }

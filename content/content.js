@@ -13,7 +13,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Получаем элементы игр с помощью XPath
     const gameElements = [];
     let gameslenght = document.evaluate(
-      "/html/body/div[1]/div[6]/div[7]/div[3]/div/div/div[2]/div[3]/div[1]/div[1]",
+      "/html/body/div[1]/div/div/div/section/div[2]/div[2]/div[3]/div[1]/div[1]",
       document,
       null,
       XPathResult.FIRST_ORDERED_NODE_TYPE,
@@ -21,11 +21,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     ).singleNodeValue.childNodes.length;
 
     for (let i = 1; i <= gameslenght; i++) {
-      const base = `/html/body/div[1]/div[6]/div[7]/div[3]/div/div/div[2]/div[3]/div[1]/div[1]/div[${i}]/div/div/div[2]`;
-
+      const base = `/html/body/div[1]/div/div/div/section/div[2]/div[2]/div[3]/div[1]/div[1]/div[${i}]/div/div/div[2]`;
       const xpathName = `${base}/div[1]/div[1]`;
       const xpathPriceNorm = `${base}/div[4]/div[2]/span/div/div[2]`;
-      const xpathPriceAlt = `${base}/div[3]/div[2]/span/div/div[2]`;
+      const xpathPriceAlt =  `${base}/div[3]/div[2]/span/div/div[2]`;
+      const xpathPriceAlt2 = `${base}/div[3]/div[2]/span/div`;
 
       const element = document.evaluate(
         xpathName, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
@@ -37,6 +37,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       let price = getPriceByXPath(xpathPriceNorm);
       if (price === null) {
         price = getPriceByXPath(xpathPriceAlt);
+      }
+      if (price === null) {
+        price = getPriceByXPath(xpathPriceAlt2);
       }
       if (price === null) {
         price = '—';
