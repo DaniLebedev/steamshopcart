@@ -91,6 +91,7 @@ function displayGames() {
 
   // Добавляем каждую игру
   games.forEach((game, index) => {
+    sum += parseInt(game.price.replaceAll(' ', '').slice(0, -4));
     gamelist.innerHTML += `
       <div class="game" data-index="${index}">
         <label>
@@ -99,8 +100,6 @@ function displayGames() {
       </div>
     `;
     last = index;
-    sum += parseInt(game.price.slice(0, -4));
-
   });
   last++;
   gamelist.innerHTML += `
