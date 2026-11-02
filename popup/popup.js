@@ -76,6 +76,8 @@ async function getElementByXPath(xpath) {
 function displayGames() {
 
   let bufer = "";
+  let sum = 0;
+  let last = 0;
 
   if (!gamelist) return;
 
@@ -96,10 +98,22 @@ function displayGames() {
         </label>
       </div>
     `;
+    last = index;
+    sum += parseInt(game.price.slice(0, -4));
+
   });
+  last++;
+  gamelist.innerHTML += `
+      <div class="game" data-index="${last}">
+        <label>
+          <h1 class="game-id">Итого: ${sum}₸</h1>
+        </label>
+      </div>
+    `;
   games.forEach((game) => {
     bufer += `${game.id}: ${game.name}  ${game.price}\n`;
   });
+  bufer += `Итого: ${sum}₸`;
   try {
     navigator.clipboard.writeText(bufer);
   }
